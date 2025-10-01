@@ -7,6 +7,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Column;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -21,6 +22,8 @@ public class JobEntity {
   private UUID id;
   private String description;
   private String benefits;
+
+  @NotBlank(message = "Essa campo é obrigatório")
   private String level;
 
   @ManyToOne()
