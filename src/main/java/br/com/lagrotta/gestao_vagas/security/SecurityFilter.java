@@ -26,10 +26,10 @@ public class SecurityFilter extends OncePerRequestFilter {
       (HttpServletRequest request,
        HttpServletResponse response,
        FilterChain filterChain) throws ServletException, IOException {
-    SecurityContextHolder.getContext().setAuthentication(null);
     String header = request.getHeader("Authorization");
 
     if (request.getRequestURI().startsWith("/company")) {
+      SecurityContextHolder.getContext().setAuthentication(null);
       if (header != null) {
         var token = this.jwtProvider.validadeToken(header);
         if (token == null) {
@@ -38,7 +38,7 @@ public class SecurityFilter extends OncePerRequestFilter {
         }
 
         var roles = token.getClaim("roles").asList(Object.class);
-        var grants = roles.stream().map(role -> new SimpleGrantedAuthority("ROLE" + role.toString().toUpperCase())).toList();
+        var grants = roles.stream().map(role -> new SimpleGrantedAuthority("ROLE_" + role.toString().toUpperCase())).toList();
 
         request.setAttribute("company_id", token.getSubject());
         UsernamePasswordAuthenticationToken auth =
