@@ -1,5 +1,6 @@
 package br.com.lagrotta.gestao_vagas.modules.company.entities;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -26,10 +27,15 @@ public class JobEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.UUID)
   private UUID id;
+
+  @Schema(example = "Vaga para design")
   private String description;
+
+  @Schema(example = "GymPass, Planod de saude")
   private String benefits;
 
   @NotBlank(message = "Essa campo é obrigatório")
+  @Schema(example = "Sr")
   private String level;
 
   @ManyToOne()
